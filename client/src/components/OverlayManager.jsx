@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../utils/key';
 
 const OverlayManager = () => {
     const [overlays, setOverlays] = useState([]);
@@ -9,7 +10,7 @@ const OverlayManager = () => {
     
     const fetchOverlays = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:5000/api/overlays');
+            const response = await axios.get(`${BASE_URL}//overlays`);
             setOverlays(response.data);
         } catch (error) {
             console.error("Error fetching overlays:", error);
@@ -19,7 +20,7 @@ const OverlayManager = () => {
 
     const updateOverlay = async (id) => {
         try {
-            await axios.put(`http://127.0.0.1:5000/api/overlays/${id}`, newOverlayData);
+            await axios.put(`${BASE_URL}//overlays/${id}`, newOverlayData);
             fetchOverlays();
             setEditOverlay(null);
         } catch (error) {
@@ -30,7 +31,7 @@ const OverlayManager = () => {
    
     const deleteOverlay = async (id) => {
         try {
-            await axios.delete(`http://127.0.0.1:5000/api/overlays/${id}`);
+            await axios.delete(`${BASE_URL}//overlays/overlays/${id}`);
             fetchOverlays();
         } catch (error) {
             console.error("Error deleting overlay:", error);

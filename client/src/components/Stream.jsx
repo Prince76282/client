@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'video.js/dist/video-js.css';
+import {BASE_URL} from '../utils/key'
 
 const Stream = () => {
     const [overlays, setOverlays] = useState([]);
@@ -8,14 +9,14 @@ const Stream = () => {
   
   
     useEffect(() => {
-      axios.get('http://127.0.0.1:5000/api/overlays')
+      axios.get(`${BASE_URL}/overlays`)
         .then(response => setOverlays(response.data))
         .catch(error => console.error('Error fetching overlays:', error));
     }, []);
   
     
     const handleAddOverlay = () => {
-      axios.post('http://localhost:5000/api/overlays', newOverlay)
+      axios.post(`${BASE_URL}/overlays`, newOverlay)
         .then(() => {
           setOverlays([...overlays, newOverlay]);
           setNewOverlay({ content: '', position: { top: '', left: '' }, size: '' });
